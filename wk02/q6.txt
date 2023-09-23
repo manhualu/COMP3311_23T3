@@ -1,0 +1,19 @@
+Similarity: A researcher can work on zero or more Projects, a Project can be worked on by ONE or more Researchers, 
+
+
+Difference: the time attribute is in different places.
+
+Diagram a) Time attribute is on the relationship.
+Time would be specific to the amount of time a Researcher worked on a Project.
+e.g.  
+John works on Project1 for 10hrs.
+John works on Project2 for 2hrs.
+Mary works on Project1 for 5hrs.
+
+
+Diagram b) Time attribute is ONLY on the Project entity. 
+Time would be specific only to the Project itself, the time is not specific to how much time a Researcher worked on a Project. 
+e.g. 
+(based on above example)
+Project1 has been worked on for 15hrs (10 + 5).
+Project2 has been worked on for 2hrs.

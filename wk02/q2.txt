@@ -1,0 +1,7 @@
+Q2. Why do we want to data model?
+A data model should: 
+- Take in the requirements given by a client 
+- Build a description of the entities and its attributes
+- Show the relationship between these entities. 
+
+The data model should give enough detail that a database schema can be created from it without additional info.
