@@ -1,0 +1,23 @@
+Q3. 
+
+Single-table Style Mapping: 
+
+R would have these tuple values:
+    a is NOT null, b is NOT null, c is null, d is null
+
+S would have these tuple values: 
+    a is NOT null, b is null, c is NOT null, d is null
+
+
+------- Reagarding Assignment 1 -------
+If you have nested select statements in your assignment, 
+split them up like below: 
+    select  * 
+    from    R
+    where   R.a in (
+                        select  * 
+                        from    S 
+                        where   S.b > 10;
+                    );
+    
+    ^ we will look at more examples like this next week
