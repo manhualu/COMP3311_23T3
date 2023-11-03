@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+
+import sys
+import psycopg2
+
+if len(sys.argv) < 3:
+    print(f"Usage: {sys.argv[0]} studentID term")
+    exit(1)
+
+student = sys.argv[1]
+term = sys.argv[2]
+
+conn = None
+
+stuQuery = """
+select   p.fullname
+from     People p 
+join     Students s on p.id=s.id
+where    p.id = %s
+"""
+
+coursesQuery = """
+select   s.code, s.name
+from     Subjects s
+join     Courses c on (c.subject=s.id)
+join     Terms t on (c.term=t.id)
+join     Course_enrolments e on (e.course=c.id)
+join     People p on (e.student=p.id)
+where    p.id = %s and t.code = %s
+order    by s.code
+"""
+
+try:
+    conn = psycopg2.connect("dbname=uni")
+    cur = conn.cursor()
+
+    cur.execute(stuQuery, [student])
+    stuName = cur.fetchone()
+
+    if stuName is None:
+        print("No such student")
+        exit(0)
+
+    cur.execute(coursesQuery, [student, term])
+    courses = cur.fetchall()
+    if len(courses) == 0:
+        print("No courses")
+        exit(0)
+
+    for course in courses:
+        courseId, courseName = course
+        print(f"{courseId} {courseName}")
+
+except psycopg2.Error as err:
+    print("database error: ", err)
+finally:
+    if conn is not None:
+        conn.close()
